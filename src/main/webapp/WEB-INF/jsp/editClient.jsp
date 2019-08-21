@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<title>Client Configuration</title>
+<title>Update client configuration</title>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -68,18 +68,20 @@
 
 		<div style="margin-top: 2%;" class="row">
 
+
 			<div class="col-lg-8">
 				<%-- <c:if test="${not empty feedBackMsg}">
+				
+				
+				
 				</c:if> --%>
 
 				<c:choose>
 					<c:when test="${status == 'SUCCESS' }">
-						<div
-							style="color: green;padding: 10px; font-size-adjust: 16;background: ${colorValue}">${feedBackMsg }</div>
+						<div style="color: green;padding: 10px; font-size-adjust: 16;background: ${colorValue}">${feedBackMsg }</div>
 					</c:when>
 					<c:otherwise>
-						<div
-							style="color: white;padding: 10px; font-size-adjust: 16;background: ${colorValue}">${ feedBackMsg}</div>
+						<div style="color: white;padding: 10px; font-size-adjust: 16;background: ${colorValue}">${ feedBackMsg}</div>
 					</c:otherwise>
 				</c:choose>
 
@@ -157,6 +159,7 @@
 						<form:errors class="error-message" path="addressLine2"></form:errors>
 					</div>
 
+
 					<div class="form-group">
 						<label for="pincode">Pincode </label>
 						<form:input path="pincode" type="text"
@@ -166,38 +169,25 @@
 
 					<div class="form-group">
 						<label for="stateCode">State</label>
-						<%-- <form:input path="stateCode" type="text"
+						<form:input path="stateCode" type="text"
 							class="form-control inout-box" id="stateCode"
-							placeholder="STATE CODE" /> --%>
-
-						<form:select class="form-control inout-box" title="SELECT COUNTRY"
-							items="${states}" itemLabel="stateName" itemValue="stateCode"
-							path="coutryCode">
-						</form:select>
+							placeholder="STATE CODE" />
 						<form:errors class="error-message" path="stateCode"></form:errors>
 					</div>
 
-					<%-- <div class="form-group">
+					<div class="form-group">
 						<label for="exampleFormControlInput1">COUNTRY</label>
 						<form:input path="coutryCode" type="text"
 							class="form-control inout-box" id="coutryCode"
 							placeholder="COUNTRY CODE" />
 						<form:errors class="error-message" path="coutryCode"></form:errors>
-					</div> --%>
+					</div>
 
-					<label for="exampleFormControlInput1">COUNTRY</label>
-					<form:select class="form-control inout-box" title="SELECT COUNTRY"
-						items="${countries}" itemLabel="countryName"
-						itemValue="countryCode" path="coutryCode">
-					</form:select>
-
-					<%-- <form:options  itemValue="countryCode"   items="${countries}" itemLabel="countryName"/> --%>
-					<form:errors class="error-message" path="coutryCode"></form:errors>
-
-					<div style="margin-top: 10px;" class="form-group">
+					<div class="form-group">
 						<input type="reset" value="Reset"> &nbsp; &nbsp; <input
 							type="submit" value="Save">
 					</div>
+
 
 					<!-- <div class="form-group">
 						<label for="exampleFormControlSelect1">Example select</label> <select
