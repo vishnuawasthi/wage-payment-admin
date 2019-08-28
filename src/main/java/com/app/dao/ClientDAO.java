@@ -18,5 +18,9 @@ public interface ClientDAO {
 	
 	List<State> findAllState();
 	
+	List<ClientConfig> findAllClient();
+	
+	List<ClientConfig> searchClientWithFilter(String searchString);
+	
 
 }

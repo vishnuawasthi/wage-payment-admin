@@ -43,6 +43,33 @@
 	font-weight: 200;
 	font-family: serif;
 }
+
+
+
+
+input[type=text] {
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('searchicon.png');
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+  width: 100%;
+}
+
+
+
+
+
 </style>
 </head>
 <body>
@@ -53,6 +80,12 @@
 				<%@ include file="header.html"%>
 			</div>
 		</div>
+		
+		
+		<%@ include file="searchPopup.jsp" %>
+		
+		
+		
 		<div align="center">
 			<table class="table table-hover">
 				<%-- <caption>
@@ -62,6 +95,7 @@
 					<tr>
 						<th scope="col">ID</th>
 						<th scope="col">Name</th>
+						<th scope="col">Client Code</th>
 						<th scope="col">Email</th>
 						<th scope="col">Action</th>
 					</tr>
@@ -71,6 +105,7 @@
 						<tr>
 							<td scope="row"><c:out value="${client.id}" /></td>
 							<td><c:out value="${client.clientName}" /></td>
+							<td><c:out value="${client.clientCode}" /></td>
 							<td><c:out value="${client.email}" /></td>
 							<td><a href="edit-client?id=${client.id}">Update</a></td>
 						</tr>

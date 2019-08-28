@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Client Configuration</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -95,7 +95,7 @@
 
 					<div class="form-group">
 						<label for="clientName">Client Name</label>
-						<form:input path="clientName" type="text"
+						<form:input path="clientName" type="text"  maxlength="100"
 							class="form-control inout-box" id="clientName"
 							placeholder="CLIENT NAME" />
 						<form:errors class="error-message" path="clientName" />
@@ -103,7 +103,7 @@
 
 					<div class="form-group">
 						<label for="registrationNumber">Registered Name</label>
-						<form:input path="registrationNumber" type="text"
+						<form:input path="registrationNumber" type="text"  maxlength="100"
 							class="form-control inout-box" id="registrationNumber"
 							placeholder="Registration Number" />
 						<form:errors class="error-message" path="registrationNumber">
@@ -112,9 +112,15 @@
 
 					<div class="form-group">
 						<label for="clientType">Client Type</label>
-						<form:input path="clientType" type="text"
+						<%-- <form:input path="clientType" type="text"
 							class="form-control inout-box" id="clientCode"
-							placeholder="CLIENT TYPE" />
+							placeholder="CLIENT TYPE" /> --%>
+							
+							<form:select class="form-control inout-box" 
+							items="${clientTypes}" itemLabel="typeName" itemValue="typeCode"
+							path="clientType">
+						</form:select>	
+							
 						<form:errors class="error-message" path="clientType"></form:errors>
 					</div>
 
@@ -159,7 +165,7 @@
 
 					<div class="form-group">
 						<label for="pincode">Pincode </label>
-						<form:input path="pincode" type="text"
+						<form:input path="pincode" type="text" maxlength="6"
 							class="form-control inout-box" id="pincode" placeholder="PINCODE" />
 						<form:errors class="error-message" path="pincode"></form:errors>
 					</div>
@@ -170,9 +176,9 @@
 							class="form-control inout-box" id="stateCode"
 							placeholder="STATE CODE" /> --%>
 
-						<form:select class="form-control inout-box" title="SELECT COUNTRY"
+						<form:select class="form-control inout-box" 
 							items="${states}" itemLabel="stateName" itemValue="stateCode"
-							path="coutryCode">
+							path="stateCode">
 						</form:select>
 						<form:errors class="error-message" path="stateCode"></form:errors>
 					</div>

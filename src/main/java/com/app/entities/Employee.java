@@ -46,9 +46,9 @@ public class Employee extends AuditEntity {
 	@Column(name = "PINCODE", nullable = false, length = 6)
 	private String pincode;
 
-	@ManyToOne
+/*	@ManyToOne
 	@JoinColumn(name = "CLIENT_ID")
-	private ClientConfig clientConfig;
+	private ClientConfig clientConfig;*/
 
 	public Long getId() {
 		return id;
@@ -106,12 +106,5 @@ public class Employee extends AuditEntity {
 		this.pincode = pincode;
 	}
 
-	public ClientConfig getClientConfig() {
-		return clientConfig;
-	}
-
-	public void setClientConfig(ClientConfig clientConfig) {
-		this.clientConfig = clientConfig;
-	}
-
+	
 }

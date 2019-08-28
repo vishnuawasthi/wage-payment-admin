@@ -92,12 +92,12 @@
 
 			<div class="col-lg-8">
 
-				<form:form method="POST" action="client-config"
+				<form:form method="POST" action="edit-client"
 					modelAttribute="clientConfigDTO">
 
 					<div class="form-group">
 						<label for="clientName">Client Name</label>
-						<form:input path="clientName" type="text"
+						<form:input path="clientName" type="text"  maxlength="100"
 							class="form-control inout-box" id="clientName"
 							placeholder="CLIENT NAME" />
 						<form:errors class="error-message" path="clientName" />
@@ -105,7 +105,7 @@
 
 					<div class="form-group">
 						<label for="registrationNumber">Registered Name</label>
-						<form:input path="registrationNumber" type="text"
+						<form:input path="registrationNumber" type="text"  maxlength="100"
 							class="form-control inout-box" id="registrationNumber"
 							placeholder="Registration Number" />
 						<form:errors class="error-message" path="registrationNumber">
@@ -114,9 +114,16 @@
 
 					<div class="form-group">
 						<label for="clientType">Client Type</label>
-						<form:input path="clientType" type="text"
+				<%-- 		<form:input path="clientType" type="text"
 							class="form-control inout-box" id="clientCode"
-							placeholder="CLIENT TYPE" />
+							placeholder="CLIENT TYPE" />    clientTypes --%>
+							
+						
+							<form:select class="form-control inout-box" 
+							items="${clientTypes}" itemLabel="typeName" itemValue="typeCode"
+							path="clientType">
+						</form:select>	
+							
 						<form:errors class="error-message" path="clientType"></form:errors>
 					</div>
 
@@ -139,7 +146,7 @@
 						<label for="clientCode">Client Code</label>
 						<form:input path="clientCode" type="text"
 							class="form-control inout-box" id="clientCode"
-							placeholder="Cleint Code" />
+							placeholder="Cleint Code"  readonly="true" />
 						<form:errors class="error-message" path="clientCode"></form:errors>
 					</div>
 
@@ -162,30 +169,44 @@
 
 					<div class="form-group">
 						<label for="pincode">Pincode </label>
-						<form:input path="pincode" type="text"
+						<form:input path="pincode" type="text" maxlength="6"
 							class="form-control inout-box" id="pincode" placeholder="PINCODE" />
 						<form:errors class="error-message" path="pincode"></form:errors>
 					</div>
 
 					<div class="form-group">
+					
 						<label for="stateCode">State</label>
-						<form:input path="stateCode" type="text"
-							class="form-control inout-box" id="stateCode"
-							placeholder="STATE CODE" />
+						
+						
+						<form:select class="form-control inout-box" 
+							items="${states}" itemLabel="stateName" itemValue="stateCode"
+							path="stateCode">
+						</form:select>
 						<form:errors class="error-message" path="stateCode"></form:errors>
 					</div>
 
 					<div class="form-group">
 						<label for="exampleFormControlInput1">COUNTRY</label>
-						<form:input path="coutryCode" type="text"
+				<%-- 		<form:input path="coutryCode" type="text"
 							class="form-control inout-box" id="coutryCode"
-							placeholder="COUNTRY CODE" />
+							placeholder="COUNTRY CODE" /> --%>
+							
+							<form:select class="form-control inout-box" title="SELECT COUNTRY"
+						items="${countries}" itemLabel="countryName"
+						itemValue="countryCode" path="coutryCode">
+					</form:select>
+							
 						<form:errors class="error-message" path="coutryCode"></form:errors>
 					</div>
 
 					<div class="form-group">
-						<input type="reset" value="Reset"> &nbsp; &nbsp; <input
-							type="submit" value="Save">
+						<input type="reset" value="Reset" /> &nbsp; &nbsp; 
+						
+						<input type="submit" value="Save" />
+						
+						
+							
 					</div>
 
 

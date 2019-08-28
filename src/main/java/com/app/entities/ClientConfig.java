@@ -13,11 +13,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-
 
 @Entity
 @Table(name = "CLIENT_CONFIG")
@@ -30,27 +28,26 @@ public class ClientConfig {
 	private Long id;
 
 	@NotEmpty(message = "Client name is required")
-//	@Max(value = 100, message = "Client name can not be more than 100 character long")
-	@Column(name = "CLIENT_NAME", nullable = false, length = 100)
+	//@Max(value = 100, message = "Maximum allowed character lenth is 100")
+	@Column(name = "CLIENT_NAME", nullable = false)
 	private String clientName;
 
 	@Email(message = "Please enter valid email")
-//	@Max(value = 100, message = "Email can not be more than 100 character long")
-	@Column(name = "EMAIL", nullable = false, length = 100)
+//	@Max(value = 100, message = "Maximum allowed character lenth is 100")
+	@Column(name = "EMAIL", nullable = false)
 	private String email;
 
+	//@Max(value = 10, message = "Altername number can not be more than 12 digits")
 	@NotEmpty(message = "Contact number is required")
-	@Column(name = "CONTACT_NUMBER", length = 12)
-//	@Max(value = 12, message = "Contact number can not be more than 12 digits")
+	@Column(name = "CONTACT_NUMBER")
 	private String contactNumber;
 
-	@Column(name = "ALT_CONTACT_NBR", length = 12)
-	@Max(value = 12, message = "Altername number can not be more than 12 digits")
+	@Column(name = "ALT_CONTACT_NBR")
+	//@Max(value = 10, message = "Altername number can not be more than 10 digits")
 	private String alternameNumber;
 
 	@NotEmpty(message = "Client Code is required")
-	@Column(name = "CLIENT_CODE", nullable = false, unique = true, length = 20)
-//	@Max(value = 12, message = "Client code can not be more than 20 digits")
+	@Column(name = "CLIENT_CODE", nullable = false, unique = true)
 	private String clientCode;
 
 	@NotEmpty(message = "Registration number is required")
@@ -76,8 +73,7 @@ public class ClientConfig {
 
 	@NotEmpty(message = "Pincode is required")
 	@Column(name = "PINCODE")
-//	@Max(value = 6, message = "Pincode can not be more than 6 digits")
-//	@Min(value = 6, message = "Pincode can not be less than 6 digits")
+	//@Max(value = 6, message = "Pincode can not be more than 6 digits long")
 	private String pincode;
 
 	@NotEmpty(message = "State code is required")
@@ -88,8 +84,10 @@ public class ClientConfig {
 	@Column(name = "COUNTRY_CD")
 	private String coutryCode;
 
-	@OneToMany(mappedBy = "clientConfig")
-	private Set<Employee> employees = new HashSet<Employee>();
+	/*
+	 * @OneToMany(mappedBy = "clientConfig") private Set<Employee> employees = new
+	 * HashSet<Employee>();
+	 */
 
 	public ClientConfig() {
 		super();
@@ -216,14 +214,6 @@ public class ClientConfig {
 		this.coutryCode = coutryCode;
 	}
 
-	public Set<Employee> getEmployees() {
-		return employees;
-	}
-
-	public void setEmployees(Set<Employee> employees) {
-		this.employees = employees;
-	}
-
 	@Override
 	public String toString() {
 		return "ClientConfig [id=" + id + ", clientName=" + clientName + ", email=" + email + ", contactNumber="
@@ -233,7 +223,5 @@ public class ClientConfig {
 				+ addressLine2 + ", pincode=" + pincode + ", stateCode=" + stateCode + ", coutryCode=" + coutryCode
 				+ "]";
 	}
-	
-	
 
 }

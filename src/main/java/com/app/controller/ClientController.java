@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import com.app.entities.ClientConfig;
 import com.app.entities.Country;
 import com.app.entities.State;
 import com.app.entities.TestForm;
+import com.app.utils.ClientType;
 
 @Controller
 public class ClientController {
@@ -36,32 +38,21 @@ public class ClientController {
 	@RequestMapping(value = "/client-config", method = RequestMethod.GET)
 	public ModelAndView clientConfig() {
 		ModelAndView modelAndView = new ModelAndView();
-		
+
 		modelAndView.setViewName("clientConfig");
 		ClientConfig clientConfig = new ClientConfig();
-		
 		modelAndView.addObject("clientConfigDTO", clientConfig);
-		
-		
-		List<Country> countries  = clientDAO.findAllCountry();
-		
-		List<State> states  = clientDAO.findAllState();
-		
-		System.out.println("countries  : "+countries);
-		System.out.println("states     : "+states);
-		
-		modelAndView.addObject("countries", countries);
-		
-		modelAndView.addObject("states", states);
-		
+		setCommonDetailsForClient(modelAndView);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/client-config", method = RequestMethod.POST)
-	public ModelAndView saveClientConfig(@ModelAttribute("clientConfigDTO") @Valid ClientConfig clientConfig,
-			BindingResult result) {
+	public ModelAndView saveClientConfig(@ModelAttribute("clientConfigDTO") @Valid ClientConfig clientConfig,BindingResult result) {
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("clientConfig");
+		
+		setCommonDetailsForClient(modelAndView);
 
 		if (result.hasErrors()) {
 			modelAndView.addObject("clientConfigDTO", clientConfig);
@@ -87,33 +78,33 @@ public class ClientController {
 			modelAndView.addObject("status", "FAILED");
 			modelAndView.addObject("colorValue", "red");
 			modelAndView.addObject("feedBackMsg", e.getMessage());
+			modelAndView.addObject("clientConfigDTO", clientConfig);
+			return modelAndView;
 		}
 
-		List<Country> countries  = clientDAO.findAllCountry();
-		
-		List<State> states  = clientDAO.findAllState();
-		
-		System.out.println("countries  : "+countries);
-		System.out.println("states     : "+states);
-		
-		modelAndView.addObject("countries", countries);
-		
-		modelAndView.addObject("states", states);
 		modelAndView.addObject("clientConfigDTO", new ClientConfig());
 		return modelAndView;
 	}
 	// search-clients
 
 	@RequestMapping(value = "/search-clients", method = RequestMethod.GET)
-	public ModelAndView searchClients() {
+	public ModelAndView searchClients(@RequestParam (name="searchKeyWord",required=false) String searchKeyWord) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("searchClients");
 		// ClientConfig clientConfig = new ClientConfig();
 		// modelAndView.addObject("clientConfigDTO", clientConfig);
 
-		List<ClientConfig> clientList = new ArrayList();
+		System.out.println("searchKeyWord  : "+searchKeyWord);
+		List<ClientConfig> clientList = null;
+		
+		if(StringUtils.isEmpty(searchKeyWord)) {
+			clientList = clientDAO.findAllClient();
+		}else {
+			clientList = clientDAO.searchClientWithFilter(searchKeyWord);
+		}
+		
 
-		modelAndView.addObject("clientList", getClientConfig());
+		modelAndView.addObject("clientList", clientList);
 
 		return modelAndView;
 	}
@@ -124,7 +115,9 @@ public class ClientController {
 	public ModelAndView showEditClient(@RequestParam("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("editClient");
+		setCommonDetailsForClient(modelAndView);
 		ClientConfig clientConfig = clientDAO.fineClientById(id);
+		clientConfig.setStateCode(null);
 		modelAndView.addObject("clientConfigDTO", clientConfig);
 		return modelAndView;
 	}
@@ -135,6 +128,7 @@ public class ClientController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("editClient");
 
+		setCommonDetailsForClient(modelAndView);
 		if (result.hasErrors()) {
 			modelAndView.addObject("clientConfigDTO", clientConfig);
 			return modelAndView;
@@ -160,7 +154,7 @@ public class ClientController {
 	public List<ClientConfig> getClientConfig() {
 		List<ClientConfig> clientList = new ArrayList();
 		ClientConfig config = new ClientConfig();
-		config.setId(1234343L);
+		config.setId(123434L);
 		config.setClientName("Info Pvt Ptd.");
 		config.setEmail("TestEmail.com");
 
@@ -195,5 +189,29 @@ public class ClientController {
 		System.out.println("clientConfig {}  " + testForm);
 		modelAndView.addObject("testForm", new TestForm());
 		return modelAndView;
+	}
+
+	private List<ClientType> getClientType() {
+		List<ClientType> clientTypes = new ArrayList<ClientType>();
+
+		ClientType standAlone = new ClientType("Stand alone client", "SA");
+		ClientType multiFeature = new ClientType("Multi Feature client", "MF");
+
+		clientTypes.add(standAlone);
+		clientTypes.add(multiFeature);
+		return clientTypes;
+
+	}
+
+	private void setCommonDetailsForClient(ModelAndView modelAndView) {
+		List<Country> countries = clientDAO.findAllCountry();
+		List<State> states = clientDAO.findAllState();
+		System.out.println("countries  : " + countries);
+		System.out.println("states     : " + states);
+		modelAndView.addObject("countries", countries);
+		modelAndView.addObject("states", states);
+		
+		List<ClientType> clientTypes = getClientType();
+		modelAndView.addObject("clientTypes", clientTypes);
 	}
 }
