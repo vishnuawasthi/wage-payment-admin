@@ -21,6 +21,7 @@ import com.app.entities.Country;
 import com.app.entities.State;
 import com.app.entities.TestForm;
 import com.app.utils.ClientType;
+import com.app.utils.CommonUtils;
 
 @Controller
 public class ClientController {
@@ -47,11 +48,12 @@ public class ClientController {
 	}
 
 	@RequestMapping(value = "/client-config", method = RequestMethod.POST)
-	public ModelAndView saveClientConfig(@ModelAttribute("clientConfigDTO") @Valid ClientConfig clientConfig,BindingResult result) {
-		
+	public ModelAndView saveClientConfig(@ModelAttribute("clientConfigDTO") @Valid ClientConfig clientConfig,
+			BindingResult result) {
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("clientConfig");
-		
+
 		setCommonDetailsForClient(modelAndView);
 
 		if (result.hasErrors()) {
@@ -63,6 +65,13 @@ public class ClientController {
 		System.out.println("clientConfig {}  " + clientConfig);
 
 		try {
+
+			if (!StringUtils.isEmpty(clientConfig.getOnboardDateTxt())) {
+				clientConfig.setOnboardDate(CommonUtils.convertStringToDate(clientConfig.getOnboardDateTxt(), "yyyy-MM-dd"));
+			}
+			if (!StringUtils.isEmpty(clientConfig.getLiveDateTxt())) {
+				clientConfig.setLiveDate(CommonUtils.convertStringToDate(clientConfig.getLiveDateTxt(), "yyyy-MM-dd"));
+			}
 
 			Long id = clientDAO.save(clientConfig);
 			if (id != null) {
@@ -88,21 +97,20 @@ public class ClientController {
 	// search-clients
 
 	@RequestMapping(value = "/search-clients", method = RequestMethod.GET)
-	public ModelAndView searchClients(@RequestParam (name="searchKeyWord",required=false) String searchKeyWord) {
+	public ModelAndView searchClients(@RequestParam(name = "searchKeyWord", required = false) String searchKeyWord) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("searchClients");
 		// ClientConfig clientConfig = new ClientConfig();
 		// modelAndView.addObject("clientConfigDTO", clientConfig);
 
-		System.out.println("searchKeyWord  : "+searchKeyWord);
+		System.out.println("searchKeyWord  : " + searchKeyWord);
 		List<ClientConfig> clientList = null;
-		
-		if(StringUtils.isEmpty(searchKeyWord)) {
+
+		if (StringUtils.isEmpty(searchKeyWord)) {
 			clientList = clientDAO.findAllClient();
-		}else {
+		} else {
 			clientList = clientDAO.searchClientWithFilter(searchKeyWord);
 		}
-		
 
 		modelAndView.addObject("clientList", clientList);
 
@@ -210,7 +218,7 @@ public class ClientController {
 		System.out.println("states     : " + states);
 		modelAndView.addObject("countries", countries);
 		modelAndView.addObject("states", states);
-		
+
 		List<ClientType> clientTypes = getClientType();
 		modelAndView.addObject("clientTypes", clientTypes);
 	}

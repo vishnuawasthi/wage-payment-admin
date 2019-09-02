@@ -17,6 +17,11 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<link
+	href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+	rel="stylesheet">
+
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <!-- Popper JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -44,6 +49,34 @@
 	font-family: serif;
 }
 </style>
+
+
+<script>  
+         $(function() {  
+            $( "#onboardDateTxt" ).datepicker({  
+              /*  appendText:"(yyyy-mm-dd)",  */ 
+               dateFormat:"yy-mm-dd",
+               minDate: '0',
+               autoSize:true
+               
+              /*  altField: "#datepicker-4",  
+               altFormat: "DD, d MM, yy"  */ 
+            });  
+         });  
+         
+         
+         $(function() {  
+             $( "#liveDateTxt" ).datepicker({  
+               /*  appendText:"(yyyy-mm-dd)",  */ 
+                dateFormat:"yy-mm-dd",
+               /*  minDate: '-2' */
+               /*  altField: "#datepicker-4",  
+                altFormat: "DD, d MM, yy"  */ 
+             });  
+          });  
+      </script>
+
+
 </head>
 <body>
 
@@ -95,15 +128,15 @@
 
 					<div class="form-group">
 						<label for="clientName">Client Name</label>
-						<form:input path="clientName" type="text"  maxlength="100"
+						<form:input path="clientName" type="text" maxlength="100"
 							class="form-control inout-box" id="clientName"
 							placeholder="CLIENT NAME" />
 						<form:errors class="error-message" path="clientName" />
 					</div>
 
 					<div class="form-group">
-						<label for="registrationNumber">Registered Name</label>
-						<form:input path="registrationNumber" type="text"  maxlength="100"
+						<label for="registrationNumber">Registration Number</label>
+						<form:input path="registrationNumber" type="text" maxlength="12"
 							class="form-control inout-box" id="registrationNumber"
 							placeholder="Registration Number" />
 						<form:errors class="error-message" path="registrationNumber">
@@ -115,12 +148,11 @@
 						<%-- <form:input path="clientType" type="text"
 							class="form-control inout-box" id="clientCode"
 							placeholder="CLIENT TYPE" /> --%>
-							
-							<form:select class="form-control inout-box" 
-							items="${clientTypes}" itemLabel="typeName" itemValue="typeCode"
-							path="clientType">
-						</form:select>	
-							
+
+						<form:select class="form-control inout-box" items="${clientTypes}"
+							itemLabel="typeName" itemValue="typeCode" path="clientType">
+						</form:select>
+
 						<form:errors class="error-message" path="clientType"></form:errors>
 					</div>
 
@@ -130,6 +162,14 @@
 							class="form-control inout-box" id="contactNumber"
 							placeholder="CONTACT NUMBER" />
 						<form:errors class="error-message" path="contactNumber"></form:errors>
+					</div>
+
+					<div class="form-group">
+						<label for="alternateNumber">Alternate Number</label>
+						<form:input path="alternateNumber" type="text"
+							class="form-control inout-box" id="alternateNumber"
+							placeholder="ALTERNATE NUMBER" />
+						<form:errors class="error-message" path="alternateNumber"></form:errors>
 					</div>
 
 					<div class="form-group">
@@ -145,6 +185,20 @@
 							class="form-control inout-box" id="clientCode"
 							placeholder="Cleint Code" />
 						<form:errors class="error-message" path="clientCode"></form:errors>
+					</div>
+
+					<div class="form-group">
+						<label for="onboardDateTxt">On boarding Date</label>
+						<form:input path="onboardDateTxt" type="text"
+							class="form-control inout-box" id="onboardDateTxt" />
+						<form:errors class="error-message" path="onboardDateTxt"></form:errors>
+					</div>
+
+					<div class="form-group">
+						<label for="liveDateTxt">Live Date</label>
+						<form:input path="liveDateTxt" type="text"
+							class="form-control inout-box" id="liveDateTxt" />
+						<form:errors class="error-message" path="liveDateTxt"></form:errors>
 					</div>
 
 					<div class="form-group">
@@ -176,9 +230,8 @@
 							class="form-control inout-box" id="stateCode"
 							placeholder="STATE CODE" /> --%>
 
-						<form:select class="form-control inout-box" 
-							items="${states}" itemLabel="stateName" itemValue="stateCode"
-							path="stateCode">
+						<form:select class="form-control inout-box" items="${states}"
+							itemLabel="stateName" itemValue="stateCode" path="stateCode">
 						</form:select>
 						<form:errors class="error-message" path="stateCode"></form:errors>
 					</div>

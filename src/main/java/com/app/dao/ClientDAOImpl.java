@@ -38,8 +38,9 @@ public class ClientDAOImpl implements ClientDAO {
 	}
 
 	@Override
-	public void update(ClientConfig clientConfig) {
-		sessionFactory.getCurrentSession().update(clientConfig);
+	public ClientConfig update(ClientConfig clientConfig) {
+			sessionFactory.getCurrentSession().update(clientConfig);
+			return clientConfig;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)

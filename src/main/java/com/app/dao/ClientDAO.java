@@ -12,7 +12,7 @@ public interface ClientDAO {
 	
 	ClientConfig fineClientById(Long id);
 	
-	void update(ClientConfig clientConfig);
+	ClientConfig update(ClientConfig clientConfig);
 	
 	List<Country> findAllCountry();
 	

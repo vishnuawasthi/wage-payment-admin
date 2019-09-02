@@ -1,21 +1,21 @@
 package com.app.entities;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
+import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "CLIENT_CONFIG")
@@ -28,37 +28,48 @@ public class ClientConfig {
 	private Long id;
 
 	@NotEmpty(message = "Client name is required")
-	//@Max(value = 100, message = "Maximum allowed character lenth is 100")
+	@Pattern(regexp = "^(?:[A-Za-z0-9\\_ ]*|)$", message = "Client name only accept albhabets,numbers and underscope(_)")
 	@Column(name = "CLIENT_NAME", nullable = false)
 	private String clientName;
 
+	@NotEmpty(message = "Email is required")
 	@Email(message = "Please enter valid email")
-//	@Max(value = 100, message = "Maximum allowed character lenth is 100")
 	@Column(name = "EMAIL", nullable = false)
 	private String email;
 
-	//@Max(value = 10, message = "Altername number can not be more than 12 digits")
+	@Pattern(regexp = "^(?:[0-9]{10}|)$", message = "Contact number accepts only digit  of length 10")
 	@NotEmpty(message = "Contact number is required")
 	@Column(name = "CONTACT_NUMBER")
 	private String contactNumber;
 
 	@Column(name = "ALT_CONTACT_NBR")
-	//@Max(value = 10, message = "Altername number can not be more than 10 digits")
-	private String alternameNumber;
+	@Pattern(regexp = "^(?:[0-9]{10}|)$", message = "Alternate number accepts only digit  of length 10")
+	private String alternateNumber;
 
+	@Pattern(regexp = "^(?:[A-Za-z0-9\\\\_]*|)$", message = "Client code only accept alphanumeric and underscore)")
 	@NotEmpty(message = "Client Code is required")
 	@Column(name = "CLIENT_CODE", nullable = false, unique = true)
 	private String clientCode;
 
 	@NotEmpty(message = "Registration number is required")
+	@Pattern(regexp = "^(?:[0-9]{12}|)$", message = "Registration number accepts only digits of length 12")
 	@Column(name = "REG_NBR")
 	private String registrationNumber;
 
+	@DateTimeFormat(iso = ISO.DATE, pattern = "yyyy-MM-dd")
 	@Column(name = "ONBOARD_DT")
 	private Date onboardDate;
 
+	@DateTimeFormat(iso = ISO.DATE, pattern = "yyyy-MM-dd")
 	@Column(name = "LIVE_DT")
 	private Date liveDate;
+
+	@Transient
+	private String liveDateTxt;
+
+	@NotEmpty(message = "Onboard date is required")
+	@Transient
+	private String onboardDateTxt;
 
 	@NotEmpty(message = "Client type is required")
 	@Column(name = "CLIENT_TYPE")
@@ -73,7 +84,7 @@ public class ClientConfig {
 
 	@NotEmpty(message = "Pincode is required")
 	@Column(name = "PINCODE")
-	//@Max(value = 6, message = "Pincode can not be more than 6 digits long")
+	// @Max(value = 6, message = "Pincode can not be more than 6 digits long")
 	private String pincode;
 
 	@NotEmpty(message = "State code is required")
@@ -126,12 +137,12 @@ public class ClientConfig {
 		this.contactNumber = contactNumber;
 	}
 
-	public String getAlternameNumber() {
-		return alternameNumber;
+	public String getAlternateNumber() {
+		return alternateNumber;
 	}
 
-	public void setAlternameNumber(String alternameNumber) {
-		this.alternameNumber = alternameNumber;
+	public void setAlternateNumber(String alternateNumber) {
+		this.alternateNumber = alternateNumber;
 	}
 
 	public String getClientCode() {
@@ -214,10 +225,26 @@ public class ClientConfig {
 		this.coutryCode = coutryCode;
 	}
 
+	public String getLiveDateTxt() {
+		return liveDateTxt;
+	}
+
+	public void setLiveDateTxt(String liveDateTxt) {
+		this.liveDateTxt = liveDateTxt;
+	}
+
+	public String getOnboardDateTxt() {
+		return onboardDateTxt;
+	}
+
+	public void setOnboardDateTxt(String onboardDateTxt) {
+		this.onboardDateTxt = onboardDateTxt;
+	}
+
 	@Override
 	public String toString() {
 		return "ClientConfig [id=" + id + ", clientName=" + clientName + ", email=" + email + ", contactNumber="
-				+ contactNumber + ", alternameNumber=" + alternameNumber + ", clientCode=" + clientCode
+				+ contactNumber + ", alternameNumber=" + alternateNumber + ", clientCode=" + clientCode
 				+ ", registrationNumber=" + registrationNumber + ", onboardDate=" + onboardDate + ", liveDate="
 				+ liveDate + ", clientType=" + clientType + ", addressLine1=" + addressLine1 + ", addressLine2="
 				+ addressLine2 + ", pincode=" + pincode + ", stateCode=" + stateCode + ", coutryCode=" + coutryCode

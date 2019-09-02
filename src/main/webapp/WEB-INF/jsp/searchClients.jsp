@@ -93,7 +93,7 @@ input[type=text]:focus {
 				</caption> --%>
 				<thead>
 					<tr>
-						<th scope="col">ID</th>
+						<th scope="col">Client Id</th>
 						<th scope="col">Name</th>
 						<th scope="col">Client Code</th>
 						<th scope="col">Email</th>
