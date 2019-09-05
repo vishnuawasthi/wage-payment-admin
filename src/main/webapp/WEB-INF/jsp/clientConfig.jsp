@@ -69,6 +69,7 @@
              $( "#liveDateTxt" ).datepicker({  
                /*  appendText:"(yyyy-mm-dd)",  */ 
                 dateFormat:"yy-mm-dd",
+                minDate: '0'
                /*  minDate: '-2' */
                /*  altField: "#datepicker-4",  
                 altFormat: "DD, d MM, yy"  */ 

@@ -28,7 +28,7 @@ public class ClientConfig {
 	private Long id;
 
 	@NotEmpty(message = "Client name is required")
-	@Pattern(regexp = "^(?:[A-Za-z0-9\\_ ]*|)$", message = "Client name only accept albhabets,numbers and underscope(_)")
+	@Pattern(regexp = "^(?:[^0-9]+[A-Za-z0-9\\_ ]*|)$", message = "Client name only accept albhabets,numbers and underscope(_)")
 	@Column(name = "CLIENT_NAME", nullable = false)
 	private String clientName;
 
@@ -76,15 +76,18 @@ public class ClientConfig {
 	private String clientType;
 
 	@NotEmpty(message = "Address line1 is required")
+	@Pattern(regexp = "^(?:[A-Za-z0-9\\\\_\\\\,\\\\-]*|)$", message = "AddressLine1 only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
 	@Column(name = "ADDRESS_LINE1")
 	private String addressLine1;
 
 	@Column(name = "ADDRESS_LINE2")
+	@Pattern(regexp = "^(?:[A-Za-z0-9\\\\_\\\\,\\\\-]*|)$", message = "AddressLine2 only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
 	private String addressLine2;
 
 	@NotEmpty(message = "Pincode is required")
 	@Column(name = "PINCODE")
 	// @Max(value = 6, message = "Pincode can not be more than 6 digits long")
+	@Pattern(regexp = "^(?:[0-9]{6}|)$", message = "Pincode accepts only digits of length 6")
 	private String pincode;
 
 	@NotEmpty(message = "State code is required")
