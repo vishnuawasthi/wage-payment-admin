@@ -79,4 +79,13 @@ public class ClientDAOImpl implements ClientDAO {
 		return criteria.list();
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+	@Override
+	public List<ClientConfig> findByUniqueKey(String propertyName, String columnValue) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ClientConfig.class);
+		criteria.add(Restrictions.eq(propertyName, columnValue));
+		return criteria.list();
+	}
+
+	
 }

@@ -22,5 +22,8 @@ public interface ClientDAO {
 	
 	List<ClientConfig> searchClientWithFilter(String searchString);
 	
+	List<ClientConfig> findByUniqueKey(String propertyName, String value);
+	
+	
 
 }

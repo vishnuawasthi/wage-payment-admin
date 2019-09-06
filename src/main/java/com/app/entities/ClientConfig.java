@@ -17,6 +17,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.app.validators.UniqueValue;
+
 @Entity
 @Table(name = "CLIENT_CONFIG")
 @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "SEQ_CLIENT_CONFIG", sequenceName = "SEQ_CLIENT_CONFIG")
@@ -49,6 +51,7 @@ public class ClientConfig {
 	@Pattern(regexp = "^(?:[A-Za-z0-9\\\\_]*|)$", message = "Client code only accept alphanumeric and underscore)")
 	@NotEmpty(message = "Client Code is required")
 	@Column(name = "CLIENT_CODE", nullable = false, unique = true)
+	@UniqueValue(property="clientCode")
 	private String clientCode;
 
 	@NotEmpty(message = "Registration number is required")
