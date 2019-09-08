@@ -37,6 +37,7 @@ public class CommonUtils {
 	
 	public static  ApiErrorResponseEntity buildApiErrorResponseEntity(List<String> errors,HttpStatus status) {
 		ApiErrorResponseEntity entity = new ApiErrorResponseEntity();
+		entity.setRequestDateTime(new Date());
 		entity.setDebugMessage("BAD_REQUEST");
 		entity.setErrors(errors);
 		entity.setMessage("BAD_REQUEST");

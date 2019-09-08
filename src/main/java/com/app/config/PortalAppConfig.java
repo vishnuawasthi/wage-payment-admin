@@ -41,6 +41,7 @@ public class PortalAppConfig {
 		props.put("hibernate.hbm2ddl.auto", "update");
 		props.put("hibernate.show_sql", "true");
 		props.put("hibernate.format_sql", "true");
+		props.put("javax.persistence.validation.mode", "none"); //spring.jpa.properties.javax.persistence.validation.mode=none
 		return props;
 	}
 

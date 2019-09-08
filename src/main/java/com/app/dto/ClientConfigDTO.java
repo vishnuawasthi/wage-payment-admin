@@ -1,15 +1,13 @@
-package com.app.entities;
+package com.app.dto;
 
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -20,105 +18,70 @@ import com.app.validators.EmailId;
 import com.app.validators.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Table(name = "CLIENT_CONFIG")
-@SequenceGenerator(initialValue = 1, allocationSize = 1, name = "SEQ_CLIENT_CONFIG", sequenceName = "SEQ_CLIENT_CONFIG")
-public class ClientConfig {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CLIENT_CONFIG")
-	@Column(name = "ID")
+public class ClientConfigDTO {
+	
+	//@NotEmpty(message = "id is required")
+	@NotNull(message="id is required")
 	private Long id;
 
 	@NotEmpty(message = "Client name is required")
 	@Pattern(regexp = "^(?:[^0-9]+[A-Za-z0-9\\_ ]*|)$", message = "Client name only accepts alphanumeric,underscope(_) and should not start with digits")
-	@Column(name = "CLIENT_NAME", nullable = false)
 	private String clientName;
 
 	@NotEmpty(message = "Email is required")
 	@EmailId(regExp="^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
-	@Column(name = "EMAIL", nullable = false)
 	private String email;
 
 	@Pattern(regexp = "^(?:[0-9]{10}|)$", message = "Contact number accepts only digit  of length 10")
 	@NotEmpty(message = "Contact number is required")
-	@Column(name = "CONTACT_NUMBER")
 	private String contactNumber;
 
-	@Column(name = "ALT_CONTACT_NBR")
 	@Pattern(regexp = "^(?:[0-9]{10}|)$", message = "Alternate number accepts only digit  of length 10")
 	private String alternateNumber;
 
-	@Pattern(regexp = "^(?:[A-Za-z0-9\\_]*|)$", message = "Client code only accept alphanumeric and underscore)")
-	@NotEmpty(message = "Client Code is required")
-	@Column(name = "CLIENT_CODE", nullable = false, unique = true)
-	@UniqueValue(property="clientCode")
-	private String clientCode;
+	//@Pattern(regexp = "^(?:[A-Za-z0-9\\_]*|)$", message = "Client code only accept alphanumeric and underscore)")
+	//@NotEmpty(message = "Client Code is required")
+	//@UniqueValue(property="clientCode")
+	//private String clientCode;
 
 	@NotEmpty(message = "Registration number is required")
 	@Pattern(regexp = "^(?:[0-9]{12}|)$", message = "Registration number accepts only digits of length 12")
-	@Column(name = "REG_NBR")
 	private String registrationNumber;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	@Column(name = "ONBOARD_DT")
-	private Date onboardDate;
+	//@DateTimeFormat(iso = ISO.DATE, pattern = "yyyy-MM-dd")
+	//private Date onboardDate;
+
+	//2019-09-08
+	//@DateTimeFormat(iso = ISO.DATE, pattern = "yyyy-MM-dd")
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	//private Date liveDate;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	@Column(name = "LIVE_DT")
-	private Date liveDate;
-
-	@Transient
 	private String liveDateTxt;
 
 	@NotEmpty(message = "Onboard date is required")
-	@Transient
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private String onboardDateTxt;
 
 	@NotEmpty(message = "Client type is required")
-	@Column(name = "CLIENT_TYPE")
 	private String clientType;
 
 	@NotEmpty(message = "Address line1 is required")
 	@Pattern(regexp = "^(?:[A-Za-z0-9 \\_\\,\\-]*|)$", message = "AddressLine1 only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
-	@Column(name = "ADDRESS_LINE1")
 	private String addressLine1;
 
-	@Column(name = "ADDRESS_LINE2")
 	@Pattern(regexp = "^(?:[A-Za-z0-9 \\_\\,\\-]*|)$", message = "AddressLine2 only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
 	private String addressLine2;
 
 	@NotEmpty(message = "Pincode is required")
-	@Column(name = "PINCODE")
-	// @Max(value = 6, message = "Pincode can not be more than 6 digits long")
 	@Pattern(regexp = "^(?:[0-9]{6}|)$", message = "Pincode accepts only digits of length 6")
 	private String pincode;
 
 	@NotEmpty(message = "State code is required")
-	@Column(name = "ST_CD")
 	private String stateCode;
 
 	@NotEmpty(message = "Coutry code is required")
-	@Column(name = "COUNTRY_CD")
 	private String coutryCode;
-
-	/*
-	 * @OneToMany(mappedBy = "clientConfig") private Set<Employee> employees = new
-	 * HashSet<Employee>();
-	 */
-
-	public ClientConfig() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getClientName() {
 		return clientName;
@@ -152,14 +115,6 @@ public class ClientConfig {
 		this.alternateNumber = alternateNumber;
 	}
 
-	public String getClientCode() {
-		return clientCode;
-	}
-
-	public void setClientCode(String clientCode) {
-		this.clientCode = clientCode;
-	}
-
 	public String getRegistrationNumber() {
 		return registrationNumber;
 	}
@@ -168,20 +123,20 @@ public class ClientConfig {
 		this.registrationNumber = registrationNumber;
 	}
 
-	public Date getOnboardDate() {
-		return onboardDate;
+	public String getLiveDateTxt() {
+		return liveDateTxt;
 	}
 
-	public void setOnboardDate(Date onboardDate) {
-		this.onboardDate = onboardDate;
+	public void setLiveDateTxt(String liveDateTxt) {
+		this.liveDateTxt = liveDateTxt;
 	}
 
-	public Date getLiveDate() {
-		return liveDate;
+	public String getOnboardDateTxt() {
+		return onboardDateTxt;
 	}
 
-	public void setLiveDate(Date liveDate) {
-		this.liveDate = liveDate;
+	public void setOnboardDateTxt(String onboardDateTxt) {
+		this.onboardDateTxt = onboardDateTxt;
 	}
 
 	public String getClientType() {
@@ -232,30 +187,15 @@ public class ClientConfig {
 		this.coutryCode = coutryCode;
 	}
 
-	public String getLiveDateTxt() {
-		return liveDateTxt;
+	public Long getId() {
+		return id;
 	}
 
-	public void setLiveDateTxt(String liveDateTxt) {
-		this.liveDateTxt = liveDateTxt;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-	public String getOnboardDateTxt() {
-		return onboardDateTxt;
-	}
-
-	public void setOnboardDateTxt(String onboardDateTxt) {
-		this.onboardDateTxt = onboardDateTxt;
-	}
-
-	@Override
-	public String toString() {
-		return "ClientConfig [id=" + id + ", clientName=" + clientName + ", email=" + email + ", contactNumber="
-				+ contactNumber + ", alternameNumber=" + alternateNumber + ", clientCode=" + clientCode
-				+ ", registrationNumber=" + registrationNumber + ", onboardDate=" + onboardDate + ", liveDate="
-				+ liveDate + ", clientType=" + clientType + ", addressLine1=" + addressLine1 + ", addressLine2="
-				+ addressLine2 + ", pincode=" + pincode + ", stateCode=" + stateCode + ", coutryCode=" + coutryCode
-				+ "]";
-	}
-
+	
+	
+	
+	
 }

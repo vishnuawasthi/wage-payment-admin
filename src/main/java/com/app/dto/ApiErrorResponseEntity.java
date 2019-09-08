@@ -1,6 +1,6 @@
 package com.app.dto;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -14,8 +14,8 @@ public class ApiErrorResponseEntity {
 	 */
 
 	private HttpStatus status;
-	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private LocalDateTime timestamp ; 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+	private Date requestDateTime;
 	private String message;
 	private String debugMessage;
 
@@ -29,12 +29,12 @@ public class ApiErrorResponseEntity {
 		this.status = status;
 	}
 
-	public LocalDateTime getTimestamp() {
-		return timestamp;
+	public Date getRequestDateTime() {
+		return requestDateTime;
 	}
 
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
+	public void setRequestDateTime(Date requestDateTime) {
+		this.requestDateTime = requestDateTime;
 	}
 
 	public String getMessage() {
