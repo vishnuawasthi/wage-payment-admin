@@ -60,6 +60,10 @@ public class ClientController {
 			modelAndView.addObject("clientConfigDTO", clientConfig);
 			return modelAndView;
 		}
+		
+		
+		
+		
 		// ClientConfig clientConfig = new ClientConfig();
 
 		System.out.println("clientConfig {}  " + clientConfig);

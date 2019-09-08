@@ -174,7 +174,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="contactNumber">Email</label>
+						<label for="email">Email</label>
 						<form:input path="email" type="text"
 							class="form-control inout-box" id="email" placeholder="EMAIL" />
 						<form:errors class="error-message" path="email"></form:errors>

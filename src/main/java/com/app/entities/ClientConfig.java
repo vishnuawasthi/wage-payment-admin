@@ -12,11 +12,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import com.app.validators.EmailId;
 import com.app.validators.UniqueValue;
 
 @Entity
@@ -30,12 +30,12 @@ public class ClientConfig {
 	private Long id;
 
 	@NotEmpty(message = "Client name is required")
-	@Pattern(regexp = "^(?:[^0-9]+[A-Za-z0-9\\_ ]*|)$", message = "Client name only accept albhabets,numbers and underscope(_)")
+	@Pattern(regexp = "^(?:[^0-9]+[A-Za-z0-9\\_ ]*|)$", message = "Client name only accepts alphanumeric,underscope(_) and should not start with digits")
 	@Column(name = "CLIENT_NAME", nullable = false)
 	private String clientName;
 
 	@NotEmpty(message = "Email is required")
-	@Email(message = "Please enter valid email")
+	@EmailId(regExp="^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
 	@Column(name = "EMAIL", nullable = false)
 	private String email;
 
@@ -48,7 +48,7 @@ public class ClientConfig {
 	@Pattern(regexp = "^(?:[0-9]{10}|)$", message = "Alternate number accepts only digit  of length 10")
 	private String alternateNumber;
 
-	@Pattern(regexp = "^(?:[A-Za-z0-9\\\\_]*|)$", message = "Client code only accept alphanumeric and underscore)")
+	@Pattern(regexp = "^(?:[A-Za-z0-9\\_]*|)$", message = "Client code only accept alphanumeric and underscore)")
 	@NotEmpty(message = "Client Code is required")
 	@Column(name = "CLIENT_CODE", nullable = false, unique = true)
 	@UniqueValue(property="clientCode")
@@ -79,12 +79,12 @@ public class ClientConfig {
 	private String clientType;
 
 	@NotEmpty(message = "Address line1 is required")
-	@Pattern(regexp = "^(?:[A-Za-z0-9\\\\_\\\\,\\\\-]*|)$", message = "AddressLine1 only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
+	@Pattern(regexp = "^(?:[A-Za-z0-9 \\_\\,\\-]*|)$", message = "AddressLine1 only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
 	@Column(name = "ADDRESS_LINE1")
 	private String addressLine1;
 
 	@Column(name = "ADDRESS_LINE2")
-	@Pattern(regexp = "^(?:[A-Za-z0-9\\\\_\\\\,\\\\-]*|)$", message = "AddressLine2 only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
+	@Pattern(regexp = "^(?:[A-Za-z0-9 \\_\\,\\-]*|)$", message = "AddressLine2 only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
 	private String addressLine2;
 
 	@NotEmpty(message = "Pincode is required")

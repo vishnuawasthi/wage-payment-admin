@@ -4,7 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.http.HttpStatus;
 
@@ -43,5 +44,14 @@ public class CommonUtils {
 		return entity;
 
 	}
-
+	
+	/*
+	public static void main ( String args []) {
+		String regex  =  "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+		String email   =  "test.awasthi@abbc.co.in";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher  = pattern.matcher(email);
+		System.out.println("Email : "+matcher.matches());
+	}
+  */
 }
