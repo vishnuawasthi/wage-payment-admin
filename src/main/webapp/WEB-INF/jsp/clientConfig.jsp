@@ -129,7 +129,7 @@
 
 					<div class="form-group">
 						<label for="clientName">Client Name</label>
-						<form:input path="clientName" type="text" maxlength="100"
+						<form:input path="clientName" type="text" maxlength="100" autocomplete="off"
 							class="form-control inout-box" id="clientName"
 							placeholder="CLIENT NAME" />
 						<form:errors class="error-message" path="clientName" />
@@ -137,7 +137,7 @@
 
 					<div class="form-group">
 						<label for="registrationNumber">Registration Number</label>
-						<form:input path="registrationNumber" type="text" maxlength="12"
+						<form:input path="registrationNumber" type="text" maxlength="12" autocomplete="off"
 							class="form-control inout-box" id="registrationNumber"
 							placeholder="Registration Number" />
 						<form:errors class="error-message" path="registrationNumber">
@@ -160,7 +160,7 @@
 					<div class="form-group">
 						<label for="contactNumber">Contact Number</label>
 						<form:input path="contactNumber" type="text"
-							class="form-control inout-box" id="contactNumber"
+							class="form-control inout-box" id="contactNumber" autocomplete="off"
 							placeholder="CONTACT NUMBER" />
 						<form:errors class="error-message" path="contactNumber"></form:errors>
 					</div>
@@ -168,59 +168,59 @@
 					<div class="form-group">
 						<label for="alternateNumber">Alternate Number</label>
 						<form:input path="alternateNumber" type="text"
-							class="form-control inout-box" id="alternateNumber"
+							class="form-control inout-box" id="alternateNumber" autocomplete="off"
 							placeholder="ALTERNATE NUMBER" />
 						<form:errors class="error-message" path="alternateNumber"></form:errors>
 					</div>
 
 					<div class="form-group">
 						<label for="email">Email</label>
-						<form:input path="email" type="text"
+						<form:input path="email" type="text" autocomplete="off"
 							class="form-control inout-box" id="email" placeholder="EMAIL" />
 						<form:errors class="error-message" path="email"></form:errors>
 					</div>
 
 					<div class="form-group">
 						<label for="clientCode">Client Code</label>
-						<form:input path="clientCode" type="text"
+						<form:input path="clientCode" type="text" autocomplete="off"
 							class="form-control inout-box" id="clientCode"
-							placeholder="Cleint Code" />
+							placeholder="Client Code" />
 						<form:errors class="error-message" path="clientCode"></form:errors>
 					</div>
 
 					<div class="form-group">
 						<label for="onboardDateTxt">On boarding Date</label>
-						<form:input path="onboardDateTxt" type="text"
+						<form:input path="onboardDateTxt" type="text" autocomplete="off"
 							class="form-control inout-box" id="onboardDateTxt" />
 						<form:errors class="error-message" path="onboardDateTxt"></form:errors>
 					</div>
 
 					<div class="form-group">
 						<label for="liveDateTxt">Live Date</label>
-						<form:input path="liveDateTxt" type="text"
+						<form:input path="liveDateTxt" type="text" autocomplete="off"
 							class="form-control inout-box" id="liveDateTxt" />
 						<form:errors class="error-message" path="liveDateTxt"></form:errors>
 					</div>
 
 					<div class="form-group">
-						<label for="addressLine1">Address Line 1</label>
-						<form:input path="addressLine1" type="text"
+						<label for="addressLine1">Address Line1</label>
+						<form:input path="addressLine1" type="text" autocomplete="off"
 							class="form-control inout-box" id="addressLine1"
-							placeholder="ADDRESS LINE 1" />
+							placeholder="ADDRESS LINE1" />
 						<form:errors class="error-message" path="addressLine1"></form:errors>
 					</div>
 
 					<div class="form-group">
-						<label for="addressLine2">Address Line 2</label>
-						<form:input path="addressLine2" type="text"
+						<label for="addressLine2">Address Line2</label>
+						<form:input path="addressLine2" type="text" autocomplete="off"
 							class="form-control inout-box" id="addressLine2"
-							placeholder="ADDRESS LINE 2" />
+							placeholder="ADDRESS LINE2" />
 						<form:errors class="error-message" path="addressLine2"></form:errors>
 					</div>
 
 					<div class="form-group">
 						<label for="pincode">Pincode </label>
-						<form:input path="pincode" type="text" maxlength="6"
+						<form:input path="pincode" type="text" maxlength="6" autocomplete="false"
 							class="form-control inout-box" id="pincode" placeholder="PINCODE" />
 						<form:errors class="error-message" path="pincode"></form:errors>
 					</div>
