@@ -1,20 +1,21 @@
 package com.app.entities;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.app.validators.EmailId;
 import com.app.validators.UniqueValue;
@@ -102,10 +103,9 @@ public class ClientConfig {
 	@Column(name = "COUNTRY_CD")
 	private String coutryCode;
 
-	/*
-	 * @OneToMany(mappedBy = "clientConfig") private Set<Employee> employees = new
-	 * HashSet<Employee>();
-	 */
+	
+	@OneToMany(mappedBy = "clientConfig")
+	private Set<Employee> employees = new HashSet<Employee>();
 
 	public ClientConfig() {
 		super();
@@ -246,6 +246,15 @@ public class ClientConfig {
 
 	public void setOnboardDateTxt(String onboardDateTxt) {
 		this.onboardDateTxt = onboardDateTxt;
+	}
+
+	
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
 	}
 
 	@Override

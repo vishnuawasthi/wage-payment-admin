@@ -1,11 +1,15 @@
 package com.app.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -22,6 +26,11 @@ import com.app.entities.State;
 import com.app.entities.TestForm;
 import com.app.utils.ClientType;
 import com.app.utils.CommonUtils;
+import com.opencsv.CSVWriter;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 @Controller
 public class ClientController {
@@ -60,10 +69,7 @@ public class ClientController {
 			modelAndView.addObject("clientConfigDTO", clientConfig);
 			return modelAndView;
 		}
-		
-		
-		
-		
+
 		// ClientConfig clientConfig = new ClientConfig();
 
 		System.out.println("clientConfig {}  " + clientConfig);
@@ -71,7 +77,8 @@ public class ClientController {
 		try {
 
 			if (!StringUtils.isEmpty(clientConfig.getOnboardDateTxt())) {
-				clientConfig.setOnboardDate(CommonUtils.convertStringToDate(clientConfig.getOnboardDateTxt(), "yyyy-MM-dd"));
+				clientConfig.setOnboardDate(
+						CommonUtils.convertStringToDate(clientConfig.getOnboardDateTxt(), "yyyy-MM-dd"));
 			}
 			if (!StringUtils.isEmpty(clientConfig.getLiveDateTxt())) {
 				clientConfig.setLiveDate(CommonUtils.convertStringToDate(clientConfig.getLiveDateTxt(), "yyyy-MM-dd"));
@@ -226,4 +233,37 @@ public class ClientController {
 		List<ClientType> clientTypes = getClientType();
 		modelAndView.addObject("clientTypes", clientTypes);
 	}
+
+	@RequestMapping(value = "/export-clients", method = RequestMethod.GET)
+	public void downloadClietCsvFile(HttpServletRequest request, HttpServletResponse response) {
+		// set file name and content type
+		String filename = "clients.csv";
+
+		response.setContentType("text/csv");
+		response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"");
+
+		// create a csv writer
+		StatefulBeanToCsv<ClientConfig> writer;
+		try {
+			writer = new StatefulBeanToCsvBuilder<ClientConfig>(response.getWriter())
+					.withQuotechar(CSVWriter.NO_QUOTE_CHARACTER).withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+					.withOrderedResults(false).build();
+
+			List list = clientDAO.findAllClient();
+			writer.write(list);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		// write all users to csv file
+		catch (CsvDataTypeMismatchException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CsvRequiredFieldEmptyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
 }

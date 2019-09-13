@@ -151,6 +151,11 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
+		<dependency>
+		    <groupId>com.opencsv</groupId>
+		    <artifactId>opencsv</artifactId>
+		    <version>4.5</version>
+		</dependency>
 		<!-- c3p0 -->
 		<!-- <dependency> <groupId>com.mchange</groupId> <artifactId>c3p0</artifactId> 
 			<version>${c3p0.version}</version> </dependency> -->
