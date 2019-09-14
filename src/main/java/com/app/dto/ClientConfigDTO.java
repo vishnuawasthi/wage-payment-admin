@@ -43,6 +43,8 @@ public class ClientConfigDTO {
 	//@NotEmpty(message = "Client Code is required")
 	//@UniqueValue(property="clientCode")
 	//private String clientCode;
+	
+	private String clientCode;
 
 	@NotEmpty(message = "Registration number is required")
 	@Pattern(regexp = "^(?:[0-9]{12}|)$", message = "Registration number accepts only digits of length 12")
@@ -194,6 +196,15 @@ public class ClientConfigDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public String getClientCode() {
+		return clientCode;
+	}
+
+	public void setClientCode(String clientCode) {
+		this.clientCode = clientCode;
+	}
+	
 	
 	
 	

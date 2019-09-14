@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.dao.ClientDAO;
+import com.app.dto.ClientConfigDTO;
 import com.app.entities.ClientConfig;
 import com.app.entities.Country;
 import com.app.entities.State;
@@ -137,23 +138,27 @@ public class ClientController {
 		setCommonDetailsForClient(modelAndView);
 		ClientConfig clientConfig = clientDAO.fineClientById(id);
 		clientConfig.setStateCode(null);
-		modelAndView.addObject("clientConfigDTO", clientConfig);
+		ClientConfigDTO clientConfigDTO  = new ClientConfigDTO();
+		CommonUtils.populateClientConfigDTO(clientConfig,clientConfigDTO);
+		modelAndView.addObject("clientConfigDTO", clientConfigDTO);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/edit-client", method = RequestMethod.POST)
-	public ModelAndView updateClient(@ModelAttribute("clientConfigDTO") @Valid ClientConfig clientConfig,
+	public ModelAndView updateClient(@ModelAttribute("clientConfigDTO") @Valid ClientConfigDTO clientConfigDTO,
 			BindingResult result) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("editClient");
-
 		setCommonDetailsForClient(modelAndView);
+		
 		if (result.hasErrors()) {
-			modelAndView.addObject("clientConfigDTO", clientConfig);
+			modelAndView.addObject("clientConfigDTO", clientConfigDTO);
 			return modelAndView;
 		}
 
 		try {
+			ClientConfig clientConfig = clientDAO.fineClientById(clientConfigDTO.getId());
+			CommonUtils.populateClientConfig(clientConfig, clientConfigDTO);
 			clientDAO.update(clientConfig);
 			modelAndView.addObject("status", "SUCCESS");
 			modelAndView.addObject("colorValue", "aqua");
@@ -163,10 +168,8 @@ public class ClientController {
 			modelAndView.addObject("colorValue", "red");
 			modelAndView.addObject("feedBackMsg", e.getMessage());
 			e.printStackTrace();
-
 		}
-
-		modelAndView.addObject("clientConfigDTO", clientConfig);
+		modelAndView.addObject("clientConfigDTO", clientConfigDTO);
 		return modelAndView;
 	}
 
@@ -189,7 +192,6 @@ public class ClientController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("testJsp");
 		TestForm testForm = new TestForm();
-
 		modelAndView.addObject("testForm", testForm);
 		return modelAndView;
 	}
@@ -252,15 +254,12 @@ public class ClientController {
 			List list = clientDAO.findAllClient();
 			writer.write(list);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		// write all users to csv file
 		catch (CsvDataTypeMismatchException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (CsvRequiredFieldEmptyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

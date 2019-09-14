@@ -73,7 +73,7 @@ public class ClientConfigRestController {
 		try {
 			//responseEntity =	clientDAO.update(clientConfig);
 			clientConfig =  clientDAO.fineClientById(clientConfigDTO.getId());
-			populateClientConfig(clientConfig,clientConfigDTO);
+			CommonUtils.populateClientConfig(clientConfig,clientConfigDTO);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,30 +84,6 @@ public class ClientConfigRestController {
 		return new ResponseEntity<ClientConfig>(clientConfig,HttpStatus.OK);
 	}
 	
-	public void populateClientConfig(ClientConfig clientConfig  ,ClientConfigDTO clientConfigDTO) {
-		
-		clientConfig.setClientName(clientConfigDTO.getClientName());
-		clientConfig.setContactNumber(clientConfigDTO.getContactNumber());
-		clientConfig.setAlternateNumber(clientConfigDTO.getAlternateNumber());
-		clientConfig.setEmail(clientConfigDTO.getEmail());
-		
-		clientConfig.setRegistrationNumber(clientConfigDTO.getRegistrationNumber());
-		
-		
-		clientConfig.setClientType(clientConfigDTO.getClientType());
-		clientConfig.setAddressLine1(clientConfigDTO.getAddressLine1());
-		clientConfig.setAddressLine2(clientConfigDTO.getAddressLine2());
-		clientConfig.setPincode(clientConfigDTO.getPincode());
-		clientConfig.setStateCode(clientConfigDTO.getStateCode());
-		clientConfig.setCoutryCode(clientConfigDTO.getCoutryCode());
-		
-		//Date Fields 
-		//CommonUtils.convertStringToDate(clientConfig.getLiveDateTxt(), "yyyy-MM-dd")
-		clientConfig.setOnboardDate(CommonUtils.convertStringToDate(clientConfigDTO.getOnboardDateTxt(), "yyyy-MM-dd"));
-		
-		if(!StringUtils.isEmpty(clientConfigDTO.getLiveDateTxt())) {
-			clientConfig.setLiveDate(CommonUtils.convertStringToDate(clientConfigDTO.getLiveDateTxt(), "yyyy-MM-dd"));
-		}
-	}
+	
 
 }

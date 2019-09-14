@@ -135,6 +135,7 @@
 						<form:errors class="error-message" path="clientName" />
 					</div>
 
+					<form:hidden path="id"/>
 					<div class="form-group">
 						<label for="registrationNumber">Registration Number</label>
 						<form:input path="registrationNumber" type="text" maxlength="12"
@@ -161,7 +162,7 @@
 
 					<div class="form-group">
 						<label for="contactNumber">Contact Number</label>
-						<form:input path="contactNumber" type="text"
+						<form:input path="contactNumber" type="text" maxlength="10"
 							class="form-control inout-box" id="contactNumber"
 							placeholder="CONTACT NUMBER" />
 						<form:errors class="error-message" path="contactNumber"></form:errors>
@@ -169,7 +170,7 @@
 					
 					<div class="form-group">
 						<label for="alternateNumber">Alternate Number</label>
-						<form:input path="alternateNumber" type="text"
+						<form:input path="alternateNumber" type="text" maxlength="10"
 							class="form-control inout-box" id="alternateNumber"
 							placeholder="ALTERNATE NUMBER" />
 						<form:errors class="error-message" path="alternateNumber"></form:errors>
@@ -178,14 +179,14 @@
 
 					<div class="form-group">
 						<label for="contactNumber">Email</label>
-						<form:input path="email" type="text"
+						<form:input path="email" type="text" maxlength="100"
 							class="form-control inout-box" id="email" placeholder="EMAIL" />
 						<form:errors class="error-message" path="email"></form:errors>
 					</div>
 
 					<div class="form-group">
 						<label for="clientCode">Client Code</label>
-						<form:input path="clientCode" type="text"
+						<form:input path="clientCode" type="text" maxlength="10"
 							class="form-control inout-box" id="clientCode"
 							placeholder="Cleint Code"  readonly="true" />
 						<form:errors class="error-message" path="clientCode"></form:errors>
@@ -207,7 +208,7 @@
 
 					<div class="form-group">
 						<label for="addressLine1">Address Line 1</label>
-						<form:input path="addressLine1" type="text"
+						<form:input path="addressLine1" type="text" maxlength="100"
 							class="form-control inout-box" id="addressLine1"
 							placeholder="ADDRESS LINE 1" />
 						<form:errors class="error-message" path="addressLine1"></form:errors>
@@ -216,7 +217,7 @@
 					<div class="form-group">
 						<label for="addressLine2">Address Line 2</label>
 						<form:input path="addressLine2" type="text"
-							class="form-control inout-box" id="addressLine2"
+							class="form-control inout-box" id="addressLine2" maxlength="100"
 							placeholder="ADDRESS LINE 2" />
 						<form:errors class="error-message" path="addressLine2"></form:errors>
 					</div>
