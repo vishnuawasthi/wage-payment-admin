@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.app.entities.ClientConfig;
 import com.app.entities.Country;
+import com.app.entities.Employee;
 import com.app.entities.State;
 
 public interface ClientDAO {
@@ -23,6 +24,10 @@ public interface ClientDAO {
 	List<ClientConfig> searchClientWithFilter(String searchString);
 	
 	List<ClientConfig> findByUniqueKey(String propertyName, String value);
+	
+	ClientConfig findClientByCode(String clientCode);
+	
+	
 	
 	
 

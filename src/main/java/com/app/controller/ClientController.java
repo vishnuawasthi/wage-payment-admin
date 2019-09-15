@@ -2,6 +2,7 @@ package com.app.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.dao.ClientDAO;
+import com.app.dao.EmployeeDAO;
 import com.app.dto.ClientConfigDTO;
 import com.app.entities.ClientConfig;
 import com.app.entities.Country;
+import com.app.entities.Employee;
 import com.app.entities.State;
 import com.app.entities.TestForm;
 import com.app.utils.ClientType;
@@ -38,6 +41,9 @@ public class ClientController {
 
 	@Autowired
 	private ClientDAO clientDAO;
+	
+	@Autowired
+	private EmployeeDAO employeeDAO;
 
 	@RequestMapping(value = "/clients", method = RequestMethod.GET)
 	public ModelAndView showIndex() {
@@ -49,11 +55,12 @@ public class ClientController {
 	@RequestMapping(value = "/client-config", method = RequestMethod.GET)
 	public ModelAndView clientConfig() {
 		ModelAndView modelAndView = new ModelAndView();
-
+		modelAndView.addObject("clientConfigActive", "active");
 		modelAndView.setViewName("clientConfig");
 		ClientConfig clientConfig = new ClientConfig();
 		modelAndView.addObject("clientConfigDTO", clientConfig);
 		setCommonDetailsForClient(modelAndView);
+		modelAndView.addObject("clientConfigActive", "active");
 		return modelAndView;
 	}
 
@@ -63,14 +70,13 @@ public class ClientController {
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("clientConfig");
-
+		modelAndView.addObject("clientConfigActive", "active");
 		setCommonDetailsForClient(modelAndView);
 
 		if (result.hasErrors()) {
 			modelAndView.addObject("clientConfigDTO", clientConfig);
 			return modelAndView;
 		}
-
 		// ClientConfig clientConfig = new ClientConfig();
 
 		System.out.println("clientConfig {}  " + clientConfig);
@@ -114,7 +120,7 @@ public class ClientController {
 		modelAndView.setViewName("searchClients");
 		// ClientConfig clientConfig = new ClientConfig();
 		// modelAndView.addObject("clientConfigDTO", clientConfig);
-
+		modelAndView.addObject("clientConfigActive", "active");
 		System.out.println("searchKeyWord  : " + searchKeyWord);
 		List<ClientConfig> clientList = null;
 
@@ -134,6 +140,7 @@ public class ClientController {
 	@RequestMapping(value = "/edit-client", method = RequestMethod.GET)
 	public ModelAndView showEditClient(@RequestParam("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("clientConfigActive", "active");
 		modelAndView.setViewName("editClient");
 		setCommonDetailsForClient(modelAndView);
 		ClientConfig clientConfig = clientDAO.fineClientById(id);
@@ -141,6 +148,7 @@ public class ClientController {
 		ClientConfigDTO clientConfigDTO  = new ClientConfigDTO();
 		CommonUtils.populateClientConfigDTO(clientConfig,clientConfigDTO);
 		modelAndView.addObject("clientConfigDTO", clientConfigDTO);
+		modelAndView.addObject("clientConfigActive", "active");
 		return modelAndView;
 	}
 
@@ -148,6 +156,7 @@ public class ClientController {
 	public ModelAndView updateClient(@ModelAttribute("clientConfigDTO") @Valid ClientConfigDTO clientConfigDTO,
 			BindingResult result) {
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("clientConfigActive", "active");
 		modelAndView.setViewName("editClient");
 		setCommonDetailsForClient(modelAndView);
 		
@@ -232,6 +241,10 @@ public class ClientController {
 		modelAndView.addObject("countries", countries);
 		modelAndView.addObject("states", states);
 
+		List<ClientConfig> clientConfigList = clientDAO.findAllClient();
+		
+		modelAndView.addObject("clientConfigList", clientConfigList);
+		
 		List<ClientType> clientTypes = getClientType();
 		modelAndView.addObject("clientTypes", clientTypes);
 	}
@@ -263,6 +276,73 @@ public class ClientController {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@RequestMapping(value = "/employees", method = RequestMethod.GET)
+	public ModelAndView showEmployee() {
+		System.out.println("showEmployee() - start");
+		//employeeActive
+		
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("employeeActive", "active");
+		setCommonDetailsForClient( modelAndView);
+		modelAndView.addObject("employee", new Employee());
+		modelAndView.setViewName("addEmployee");
+		System.out.println("showEmployee() - end");
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value = "/employees", method = RequestMethod.POST)
+	public ModelAndView saveEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
+		System.out.println("saveEmployee() - start");
+		ModelAndView modelAndView = new ModelAndView();
+		//employeeActive
+		modelAndView.addObject("employeeActive", "active");
+		modelAndView.setViewName("addEmployee");
+		setCommonDetailsForClient( modelAndView);
+		
+		if(bindingResult.hasErrors()) {
+			modelAndView.addObject("employee", employee);
+			return modelAndView;
+		}
+
+		try {
+			employee.setCreatedDate(new Date());
+			employee.setUpdatedDate(new Date());
+			
+			ClientConfig clientConfig = clientDAO.findClientByCode(employee.getClientCode());
+			
+			employee.setClientConfig(clientConfig);
+			Long id = employeeDAO.save(employee);
+			
+			modelAndView.addObject("status", "SUCCESS");
+			modelAndView.addObject("colorValue", "aqua");
+			modelAndView.addObject("feedBackMsg", "Record Saved Successfully! ID  " + id);
+		} catch (Exception e) {
+			modelAndView.addObject("status", "FAILED");
+			modelAndView.addObject("colorValue", "red");
+			modelAndView.addObject("feedBackMsg", e.getMessage());
+			e.printStackTrace();
+			modelAndView.addObject("employee", employee);
+			return modelAndView;
+		}
+		modelAndView.addObject("employee", new Employee());
+		System.out.println("saveEmployee() - end");
+		return modelAndView;
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/home-page", method = RequestMethod.GET)
+	public ModelAndView home() {
+		System.out.println("home() - start");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("homeActive", "active");
+		modelAndView.setViewName("home");
+		System.out.println("home() - end");
+		return modelAndView;
 	}
 
 }

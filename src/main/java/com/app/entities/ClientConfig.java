@@ -31,8 +31,18 @@ public class ClientConfig {
 	@Column(name = "ID")
 	private Long id;
 
+	/**
+	 * You may use the following regex:
+	 * 
+	 * ^[A-Za-z]\w*$
+	 * 
+	 * ^ - start of string 
+	 * [A-Za-z] - any ASCII letter
+	 *  \w* - zero or more letters/digits/_ $ - end of string.
+	 * 
+	 */
 	@NotEmpty(message = "Client name is required")
-	@Pattern(regexp = "^(?:[^0-9]+[A-Za-z0-9\\_ ]*|)$", message = "Client name only accepts alphanumeric,underscope(_) and should not start with digits")
+	@Pattern(regexp = "^[A-Za-z]\\w*$", message = "Client name only accepts alphanumeric,underscope(_) and should not start with digits")
 	@Column(name = "CLIENT_NAME", nullable = false)
 	private String clientName;
 

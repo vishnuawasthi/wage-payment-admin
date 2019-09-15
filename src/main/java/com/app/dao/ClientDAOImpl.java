@@ -2,6 +2,7 @@ package com.app.dao;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.app.entities.ClientConfig;
 import com.app.entities.Country;
+import com.app.entities.Employee;
 import com.app.entities.State;
 
 @Repository
@@ -87,6 +89,19 @@ public class ClientDAOImpl implements ClientDAO {
 		criteria.add(Restrictions.eq(propertyName, columnValue));
 		return criteria.list();
 	}
+
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+	@Override
+	public ClientConfig findClientByCode(String clientCode) {
+		List<ClientConfig> clientConfigs = sessionFactory.getCurrentSession().createCriteria(ClientConfig.class).list();
+
+		if (CollectionUtils.isNotEmpty(clientConfigs)) {
+			return clientConfigs.get(0);
+		}
+		return null;
+	}
+	
+	
 
 	
 }
