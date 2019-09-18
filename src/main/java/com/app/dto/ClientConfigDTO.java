@@ -24,8 +24,8 @@ public class ClientConfigDTO {
 	@NotNull(message="id is required")
 	private Long id;
 
-	@NotEmpty(message = "Client name is required")
-	@Pattern(regexp = "^(?:[^0-9]+[A-Za-z0-9\\_ ]*|)$", message = "Client name only accepts alphanumeric,underscope(_) and should not start with digits")
+	//@NotEmpty(message = "Client name is required")
+	@Pattern(regexp = "^[A-Za-z\\ \\_ \\-][\\w \\ \\-]*$", message = "Client name only accepts alphanumeric,underscope(_), hyphen (-) and should not start with digits")
 	private String clientName;
 
 	@NotEmpty(message = "Email is required")

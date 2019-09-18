@@ -138,7 +138,7 @@
 					<form:hidden path="id"/>
 					<div class="form-group">
 						<label for="registrationNumber">Registration Number</label>
-						<form:input path="registrationNumber" type="text" maxlength="12"
+						<form:input path="registrationNumber" type="text" maxlength="12" autocomplete="off" readonly="true"
 							class="form-control inout-box" id="registrationNumber"
 							placeholder="Registration Number" />
 						<form:errors class="error-message" path="registrationNumber">
@@ -259,7 +259,7 @@
 					<div class="form-group">
 						<input type="reset" value="Reset" /> &nbsp; &nbsp; 
 						
-						<input type="submit" value="Save" />
+						<input type="submit" value="Update" />
 						
 						
 							

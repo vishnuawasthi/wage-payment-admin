@@ -42,7 +42,7 @@ public class ClientConfig {
 	 * 
 	 */
 	@NotEmpty(message = "Client name is required")
-	@Pattern(regexp = "^[A-Za-z]\\w*$", message = "Client name only accepts alphanumeric,underscope(_) and should not start with digits")
+	@Pattern(regexp = "^[A-Za-z\\ \\_ \\-][\\w \\ \\-]*$", message = "Client name only accepts alphanumeric,underscope(_),hyphen(-) and should not start with digits")
 	@Column(name = "CLIENT_NAME", nullable = false)
 	private String clientName;
 

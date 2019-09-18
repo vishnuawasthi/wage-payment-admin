@@ -144,7 +144,6 @@ public class ClientController {
 		modelAndView.setViewName("editClient");
 		setCommonDetailsForClient(modelAndView);
 		ClientConfig clientConfig = clientDAO.fineClientById(id);
-		clientConfig.setStateCode(null);
 		ClientConfigDTO clientConfigDTO  = new ClientConfigDTO();
 		CommonUtils.populateClientConfigDTO(clientConfig,clientConfigDTO);
 		modelAndView.addObject("clientConfigDTO", clientConfigDTO);
