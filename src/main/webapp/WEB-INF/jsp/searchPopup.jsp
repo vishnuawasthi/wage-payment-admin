@@ -5,7 +5,7 @@
 
 
 
-		<form method="get" action="search-clients">
+		<form style="margin-top: 5px;" method="get" action="search-clients">
 			<input name="searchKeyWord" type="text" name="search" placeholder="Search..">
 		</form>
 	</div>
