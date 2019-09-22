@@ -24,7 +24,8 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.0.RELEASE</version>
+		<!-- <version>1.4.0.RELEASE</version> -->
+		<version>1.4.1.RELEASE</version>
 	</parent>
 
 
@@ -194,6 +195,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -216,7 +221,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
+<!-- 
 	<pluginRepositories>
 		<pluginRepository>
 			<id>spring-snapshots</id>
@@ -234,5 +239,5 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-	</pluginRepositories>
+	</pluginRepositories> -->
 </project>
