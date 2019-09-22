@@ -15,7 +15,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 @Configuration
 public class PortalAppConfig {
 
-	@Bean(name = "driverManagerDataSource")
+	/*@Bean(name = "driverManagerDataSource")
 	public DataSource driverManagerDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
@@ -23,7 +23,19 @@ public class PortalAppConfig {
 		dataSource.setUsername("POC_ADMIN");
 		dataSource.setPassword("login@123");
 		return dataSource;
+	}*/
+	
+	@Bean
+	public DataSource driverManagerDataSource() {
+	DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	dataSource.setDriverClassName("org.postgresql.Driver");
+	dataSource.setUrl("jdbc:postgresql://localhost:5432/WP_ADM");
+	dataSource.setUsername("WP_USER");
+	dataSource.setPassword("root");
+	return dataSource;
 	}
+	
+	
 
 	@Bean(name = "sessionFactory")
 	@DependsOn("driverManagerDataSource")
