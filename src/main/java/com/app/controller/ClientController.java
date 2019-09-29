@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -36,9 +38,12 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+
 @Controller
 public class ClientController {
 
+	private static final Logger LOG = LoggerFactory.getLogger(ClientController.class);
+	
 	@Autowired
 	private ClientDAO clientDAO;
 	
@@ -54,6 +59,7 @@ public class ClientController {
 
 	@RequestMapping(value = "/client-config", method = RequestMethod.GET)
 	public ModelAndView clientConfig() {
+		LOG.info("clientConfig() - staart");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("clientConfigActive", "active");
 		modelAndView.setViewName("clientConfig");
@@ -61,13 +67,14 @@ public class ClientController {
 		modelAndView.addObject("clientConfigDTO", clientConfig);
 		setCommonDetailsForClient(modelAndView);
 		modelAndView.addObject("clientConfigActive", "active");
+		LOG.info("clientConfig() - start");
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/client-config", method = RequestMethod.POST)
 	public ModelAndView saveClientConfig(@ModelAttribute("clientConfigDTO") @Valid ClientConfig clientConfig,
 			BindingResult result) {
-
+		LOG.info("saveClientConfig() - start");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("clientConfig");
 		modelAndView.addObject("clientConfigActive", "active");
@@ -75,12 +82,13 @@ public class ClientController {
 
 		if (result.hasErrors()) {
 			modelAndView.addObject("clientConfigDTO", clientConfig);
+			LOG.info("Validation error .................."+result.getAllErrors());
 			return modelAndView;
 		}
 		// ClientConfig clientConfig = new ClientConfig();
 
 		System.out.println("clientConfig {}  " + clientConfig);
-
+		LOG.info("clientConfig  {}   "+clientConfig);
 		try {
 
 			if (!StringUtils.isEmpty(clientConfig.getOnboardDateTxt())) {
@@ -106,10 +114,13 @@ public class ClientController {
 			modelAndView.addObject("colorValue", "red");
 			modelAndView.addObject("feedBackMsg", e.getMessage());
 			modelAndView.addObject("clientConfigDTO", clientConfig);
+			LOG.info("clientConfigDTO  {}   "+clientConfig);
+			LOG.info("Exception occured while saving ...",e);
 			return modelAndView;
 		}
 
 		modelAndView.addObject("clientConfigDTO", new ClientConfig());
+		LOG.info("saveClientConfig() - end");
 		return modelAndView;
 	}
 	// search-clients

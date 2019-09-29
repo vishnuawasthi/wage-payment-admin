@@ -3,6 +3,8 @@
  */
 package com.app.dao;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -45,6 +47,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public Employee update(Employee employee) {
 		sessionFactory.getCurrentSession().update(employee);
 		return employee;
+	}
+	
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@Override
+	public List<Employee> getAllEmployee() {
+		List<Employee> employeeList = sessionFactory.getCurrentSession().createCriteria(Employee.class).list();
+		return employeeList;
 	}
 
 }

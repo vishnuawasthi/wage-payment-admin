@@ -49,13 +49,13 @@ public class Employee extends AuditEntity {
 	@Column(name = "CONTACT_NUMBER", length = 10)
 	private String contactNumber;
 
-	@NotEmpty(message = "AddressLine1 is required")
-	@Pattern(regexp = "^(?:[A-Za-z0-9 \\_\\,\\-]*|)$", message = "AddressLine1 only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
+	@NotEmpty(message = "Plot No/Flat No. is required")
+	@Pattern(regexp = "^(?:[A-Za-z0-9 \\_\\,\\-]*|)$", message = "Plot No/Flat No. only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
 	@Column(name = "ADDRESS_LINE1", nullable = false, length = 100)
 	private String addressLine1;
 
-	@NotEmpty(message = "AddressLine2 is required")
-	@Pattern(regexp = "^(?:[A-Za-z0-9 \\_\\,\\-]*|)$", message = "AddressLine2 only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
+	//@NotEmpty(message = "AddressLine2 is required")
+	@Pattern(regexp = "^(?:[A-Za-z0-9 \\_\\,\\-]*|)$", message = "Street No/Line No. only accept alphanumeric and hyphen (-), comma (,), underscore (_))")
 	@Column(name = "ADDRESS_LINE2", nullable = true, length = 100)
 	private String addressLine2;
 
@@ -71,6 +71,10 @@ public class Employee extends AuditEntity {
 	@NotEmpty(message = "Coutry is required")
 	@Column(name = "COUNTRY_CD", nullable = false, length = 6)
 	private String countryCode;
+	
+	@NotEmpty(message = "Gender is required")
+	@Column(name = "SEX",length=1)
+	private String sex;
 	
 	@Transient
 	@NotEmpty(message = "Client Name is required")
@@ -187,6 +191,15 @@ public class Employee extends AuditEntity {
 
 	public void setPayments(Set<Payment> payments) {
 		this.payments = payments;
+	}
+	
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 	@Override

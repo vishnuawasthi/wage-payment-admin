@@ -70,7 +70,6 @@
 	});
 </script>
 
-
 </head>
 <body>
 	<div class="container">
@@ -82,11 +81,8 @@
 		</div>
 
 		<div style="margin-top: 2%;" class="row">
-		<c:if test="${not empty status} ">
-			<div class="col-lg-8">
-				
-				
-
+<%-- 		<c:if test="${not empty status} ">
+ --%>			<div class="col-lg-8">
 				<c:choose>
 					<c:when test="${status == 'SUCCESS' }">
 						<div
@@ -99,7 +95,7 @@
 				</c:choose>
 				
 			</div>
-			</c:if>
+		<%-- 	</c:if> --%>
 		</div>
 
 <form:form  action="employees"   modelAttribute="employee"  style="margin-top: 2%">
@@ -115,6 +111,37 @@
 					<form:input type="text" path="lastname" class="form-control" id="lastName" maxlength="100" autocomplete="off" />
 					<form:errors path="lastname" class="error-message"></form:errors>
 				</div>
+			</div>
+			
+			<div class="form-row">
+			<div class="form-group col-md-6">
+				<%-- 	<label for="firstName">Gender</label> 
+					<form:radiobutton class="form-check-input" path="sex" value="M"/>
+					<form:radiobutton class="form-check-input" path="sex" value="F"/>
+					<form:radiobutton class="form-check-input" path="sex" value="O"/> --%>
+				<label style="display: block;" >Gender</label> 
+			<div style="display:inline;margin-right: 5%" class="custom-control custom-radio">
+  				<form:radiobutton path="sex" value="M"  class="custom-control-input"  id="male"/>
+  				<label class="custom-control-label" for="male">Male </label>
+  				
+  		<%-- <form:radiobutton  path="sex" value="F" class="custom-control-input"   id="female"  />
+  				<label class="custom-control-label" for="female">Female</label>
+  				<form:radiobutton path="sex" value="O"  class="custom-control-input" id="other"  />
+  				<label class="custom-control-label" for="other">Other</label> --%>
+			</div>
+			
+			<div style="display:inline;margin-right: 5%" class="custom-control custom-radio">
+  				<form:radiobutton path="sex" value="F"  class="custom-control-input"  id="Female"/>
+  				<label class="custom-control-label" for="Female">Female </label>
+  			</div>
+  			
+  			<div style="display:inline;margin-right: 5%" class="custom-control custom-radio">
+  				<form:radiobutton path="sex" value="O"  class="custom-control-input"  id="other"/>
+  				<label class="custom-control-label" for="other">Other </label>
+  			</div>
+  			<form:errors path="sex" class="error-message"></form:errors>
+					
+			</div>
 			</div>
 				<div class="form-row">
 				<div class="form-group col-md-6">
@@ -140,13 +167,13 @@
 			</div>
 			
 			<div class="form-group">
-				 <label for="addressLine1">AddressLine1</label>
+				 <label for="addressLine1">Plot No/Flat No.</label>
 				 <form:input type="text" path="addressLine1"  class="form-control" id="addressLine1" maxlength="100" />
 				 <form:errors path="addressLine1" class="error-message"></form:errors>
 			</div>
 			
 			<div class="form-group">
-				<label for="addressLine2">AddressLine2</label> 
+				<label for="addressLine2">Street No/Line No.</label> 
 				<form:input type="text" path="addressLine2" class="form-control" id="addressLine2" maxlength="100" />
 				<form:errors path="addressLine2" class="error-message"></form:errors>
 			</div>
@@ -168,8 +195,6 @@
 							itemLabel="stateName" itemValue="stateCode" path="stateCode">
 						</form:select>
 						<form:errors class="error-message" path="stateCode"></form:errors>
-					
-					
 				</div>
 				<div class="form-group col-md-4">
 					<label for="exampleFormControlInput1">COUNTRY</label>

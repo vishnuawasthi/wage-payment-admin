@@ -8,9 +8,6 @@
 	<packaging>war</packaging>
 	<name>wage-payment-admin</name>
 
-
-
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -26,20 +23,23 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<!-- <version>1.4.0.RELEASE</version> -->
 		<version>1.4.1.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-			<!-- <version>1.4.0.RELEASE</version> -->
 		</dependency>
+		
+		<!-- ********************************************************** -->
+		
+		
+		<!-- *********************************************************** -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<!-- <version>1.4.2.RELEASE</version> -->
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
@@ -57,20 +57,18 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<!-- <version>4.3.24.RELEASE</version> -->
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<!-- <version>5.1.9.RELEASE</version> -->
 		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
+			<!-- <version>3.1.0</version> -->
 			<scope>provided</scope>
 		</dependency>
 
@@ -101,19 +99,17 @@
 			<version>2.0.0.Final</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.4-1200-jdbc41</version>
 		</dependency>
 
-		<dependency>
+		 <dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-
 
 		<!-- Optional, test for static content, bootstrap CSS -->
 		<dependency>
@@ -155,6 +151,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jboss.logging</groupId>
+					<artifactId>jboss-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Hibernate-C3P0 Integration -->
@@ -162,12 +164,24 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
 			<version>${hibernate.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jboss.logging</groupId>
+					<artifactId>jboss-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 		    <groupId>com.opencsv</groupId>
 		    <artifactId>opencsv</artifactId>
 		    <version>4.5</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>org.apache.commons</groupId>
+		    		<artifactId>commons-lang3</artifactId>
+		    	</exclusion>
+		    </exclusions>
 		</dependency>
 		<!-- c3p0 -->
 		<!-- <dependency> <groupId>com.mchange</groupId> <artifactId>c3p0</artifactId> 
