@@ -24,33 +24,33 @@
 						<!-- <h4 class="modal-title">Advance Search</h4> -->
 					</div>
 					<div class="modal-body">
-						<form method="POST" action="">
+						<form method="GET" action="search-employees">
 							<div class="form-group row">
 								<label for="id" class="col-sm-3 col-form-label">Employee Id</label>
 								<div class="col-sm-8">
-									<input  type="text"  class="form-control"  id="id" >
+									<input  type="text"  class="form-control"  id="id" name="id" >
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="firstname" class="col-sm-3 col-form-label">First Name</label>
 								<div class="col-sm-8">
-									<input  type="text"  class="form-control"  id="firstname" >
+									<input  type="text"  class="form-control"  id="firstname"  name="firstname">
 								</div>
 							</div>
 							<div class="form-group row">
 								<label for="lastname" class="col-sm-3 col-form-label">Last Name</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="lastname">
+									<input type="text" class="form-control" id="lastname" name="lastname">
 								</div>
 							</div>
 							
 							<div class="form-group row">
 								<label for="email" class="col-sm-3 col-form-label">Email</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" id="email">
+									<input type="text" class="form-control" id="email" name="email">
 								</div>
 							</div>
-						</form>
+						
 
 					</div>
 					<div class="modal-footer">
@@ -58,7 +58,7 @@
 						<input type="submit" class="btn btn-primary" value="Search">
 					</div>
 				</div>
-
+</form>
 			</div>
 		</div>
 	</div>

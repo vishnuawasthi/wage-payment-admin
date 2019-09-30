@@ -11,7 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CLIENT_CONFIG")
+@Table(name = "PAYMENTS")
 @SequenceGenerator(initialValue = 1, allocationSize = 1, name = "SEQ_PAYMENT", sequenceName = "SEQ_PAYMENT")
 public class Payment extends AuditEntity {
 

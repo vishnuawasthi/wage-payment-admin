@@ -44,7 +44,7 @@
 	font-family: serif;
 }
 
-input[type=text] {
+/* input[type=text] {
 	width: 130px;
 	box-sizing: border-box;
 	border: 2px solid #ccc;
@@ -61,7 +61,7 @@ input[type=text] {
 
 input[type=text]:focus {
 	width: 100%;
-}
+} */
 
 .hideextra {
 	white-space: nowrap;
@@ -118,7 +118,7 @@ input[type=text]:focus {
 
 								<td><c:out value="${employee.stateCode}" /></td>
 								<td><c:out value="${employee.countryCode}" /></td>
-								<td><a href="edit-client?id=${employee.id}">Edit</a></td>
+								<td><a  style="display: " href="edit-client?id=${employee.id}">Edit</a></td>
 							</tr>
 						</c:forEach>
 
