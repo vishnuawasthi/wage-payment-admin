@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -114,8 +115,8 @@ public class ClientConfig {
 	private String coutryCode;
 
 	
-	@OneToMany(mappedBy = "clientConfig")
-	private Set<Employee> employees = new HashSet<Employee>();
+	//@OneToMany(mappedBy = "clientConfig",fetch=FetchType.EAGER)
+	//private Set<Employee> employees = new HashSet<Employee>();
 
 	public ClientConfig() {
 		super();
@@ -259,14 +260,14 @@ public class ClientConfig {
 	}
 
 	
-	public Set<Employee> getEmployees() {
+	/*public Set<Employee> getEmployees() {
 		return employees;
 	}
 
 	public void setEmployees(Set<Employee> employees) {
 		this.employees = employees;
 	}
-
+*/
 	@Override
 	public String toString() {
 		return "ClientConfig [id=" + id + ", clientName=" + clientName + ", email=" + email + ", contactNumber="

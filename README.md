@@ -17,3 +17,14 @@ public DataSource driverManagerDataSource() {
 		dataSource.setPassword("root");
 		return dataSource;
 }
+
+#API SWagger URL 
+1. http://localhost:8091/swagger-ui.html
+2. http://localhost:8091/v2/api-docs
+
+
+
+
+
+
+
